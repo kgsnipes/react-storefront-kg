@@ -7,7 +7,7 @@
       "id": "HeaderSlot",
       "children": [
         {
-          "type": "LogoComponent"
+          "type": "ImageComponent"
         }
       ]
     }
