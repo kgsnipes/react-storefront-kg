@@ -1,0 +1,15 @@
+{
+  "id": "homepage",
+  "title": "React Storefront",
+  "components": [
+    {
+      "type": "ContentSlot",
+      "id": "HeaderSlot",
+      "children": [
+        {
+          "type": "LogoComponent"
+        }
+      ]
+    }
+  ]
+}
