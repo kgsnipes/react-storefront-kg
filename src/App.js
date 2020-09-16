@@ -6,6 +6,7 @@ import {
   useParams
 } from "react-router-dom";
 import "./styles.css";
+import SessionService from "./services/SessionService";
 
 export default function App() {
   return (
@@ -14,6 +15,8 @@ export default function App() {
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
+          <Route path="/test" children={<TestPage />} />
+
           <Route
             path="/category/:categoryid"
             children={<CategoryListingPage />}
@@ -33,9 +36,10 @@ export default function App() {
           <Route path="/checkout">
             <Users />
           </Route>
-          <Route exact path="/">
-            <Page id="Homepage" />
-          </Route>
+          <Route path="/:contentpage" children={<Page />} />
+
+          <Route exact path="/" children={<Page />} />
+
           <Route path="*">
             <NoMatch />
           </Route>
@@ -51,7 +55,11 @@ function CategoryListingPage() {
 }
 
 function Page(props) {
-  return <h2>Page is {props.id}</h2>;
+  let { contentpage } = useParams();
+  if (!contentpage) {
+    contentpage = "Homepage";
+  }
+  return <h2>Page is {contentpage}</h2>;
 }
 
 function Users() {
@@ -73,4 +81,12 @@ function NoMatch() {
 
 function SearchListingPage() {
   return <h2>search listing page</h2>;
+}
+
+function TestPage() {
+  let sessionService = new SessionService();
+  if (sessionService.isSupported()) {
+    console.log(sessionService.createSession(new Date().getTime()));
+  }
+  return <h2>test</h2>;
 }
